@@ -69,9 +69,10 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findByIdAndDelete(id);
-  post.findByIdAndDelete(id)
-  const {_id} = post.findById(id)
-  Comment.findByIdAndDelete(_id)
+
+  await Post.deleteMany({ user: id });
+  await Comment.deleteMany({ post: { $in: user.posts } });
+
   res.send(user);
 };
 
