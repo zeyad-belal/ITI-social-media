@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const Post = require("../models/post");
+const Comment = require("../models/comment");
 const jwt = require("jsonwebtoken");
 const AppError = require("../utils/AppError");
 const cloudinary = require("../utils/cloudinary");
@@ -67,6 +69,9 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findByIdAndDelete(id);
+  post.findByIdAndDelete(id)
+  const {_id} = post.findById(id)
+  Comment.findByIdAndDelete(_id)
   res.send(user);
 };
 
