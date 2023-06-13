@@ -8,7 +8,7 @@
 ### (R) GET    users         ....  users/:id
 ### (U) UPDATE users/:id
 ### (D) DELETE users/:id
-### uploud image Post users/profile/:id 
+### uploud image Post /upload 
 #########################################
 ## post routes
 ### (C) POST   posts/new
