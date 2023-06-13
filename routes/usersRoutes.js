@@ -1,20 +1,20 @@
 const express = require("express");
 const router = express.Router();
 
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' })
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const verfiyUserToken = require("../utils/verfiyUserToken");
 const verfiyAdminToken = require("../utils/verfiyAdminToken");
 
+const { uploadToMulter, uploadPP } = require("../utils/cloudinary");
 const {
   signUp,
   getUserById,
   getAllUsers,
   updateUser,
   deleteUser,
-  login,
-  uploudImage
+  login
 } = require("../controllers/userController");
 const {
   loginValidation,
@@ -24,26 +24,22 @@ const {
 // registration create new user
 router.post("/signup", signupValidation, signUp);
 
-//login 
+//login
 router.post("/login", loginValidation, login);
 
 //get all users
-router.get("/",verfiyUserToken, getAllUsers);
+router.get("/", verfiyUserToken, getAllUsers);
 
 //get user by id
-router.get("/:id",verfiyUserToken, getUserById);
-
+router.get("/:id", verfiyUserToken, getUserById);
 
 // update user  put or patch
-router.patch("/:id",verfiyAdminToken, updateUser);
+router.patch("/:id", verfiyAdminToken, updateUser);
 
 // delete user
-router.delete("/:id",verfiyAdminToken, deleteUser);
-
+router.delete("/:id", verfiyAdminToken, deleteUser);
 
 // multer api and controller
-router.post('/profile', upload.single('avatar'),uploudImage)
-
-
+router.post("/upload", verfiyUserToken, uploadToMulter, uploadPP);
 
 module.exports = router;
