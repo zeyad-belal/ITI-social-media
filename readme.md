@@ -1,6 +1,3 @@
-# email : admin@admin.com  ..  password: admin123
-
-
 # Routes
 
 ## user routes
